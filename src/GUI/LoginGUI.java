@@ -1,5 +1,7 @@
 package GUI;
 
+import javax.swing.ImageIcon;
+
 /**
  *
  * @author jaime
@@ -34,6 +36,7 @@ public class LoginGUI extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Inicio de sesión");
+        setIconImage(new ImageIcon(getClass().getResource("/Assets/zorro.png")).getImage());
         setResizable(false);
 
         loginPane.setBackground(new java.awt.Color(24, 6, 27));
@@ -81,6 +84,7 @@ public class LoginGUI extends javax.swing.JFrame {
         jButton1.setForeground(new java.awt.Color(255, 255, 255));
         jButton1.setText("Ingresar");
         jButton1.setBorder(null);
+        jButton1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jButton1.setPreferredSize(new java.awt.Dimension(90, 25));
 
         jButton2.setBackground(new java.awt.Color(255, 82, 82));
@@ -88,6 +92,7 @@ public class LoginGUI extends javax.swing.JFrame {
         jButton2.setForeground(new java.awt.Color(255, 255, 255));
         jButton2.setText("Salir");
         jButton2.setBorder(null);
+        jButton2.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jButton2.setPreferredSize(new java.awt.Dimension(90, 25));
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
