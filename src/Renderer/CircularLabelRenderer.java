@@ -5,6 +5,8 @@ import javax.swing.plaf.basic.BasicLabelUI;
 import java.awt.*;
 import java.awt.geom.Ellipse2D;
 
+import Assets.ConstantesColor;
+
 public class CircularLabelRenderer extends BasicLabelUI {
 
     @Override
@@ -21,7 +23,7 @@ public class CircularLabelRenderer extends BasicLabelUI {
         Point center = new Point(width / 2, height / 2);
         float radius = Math.min(width, height) / 2f;
         float[] dist = {0.0f, 1.0f};
-        Color[] colors = {new Color(255, 255, 255), new Color(24, 6, 27)};
+        Color[] colors = {ConstantesColor.blanco, ConstantesColor.fondo};
         RadialGradientPaint gradient = new RadialGradientPaint(center, radius, dist, colors, MultipleGradientPaint.CycleMethod.NO_CYCLE);
 
         g2d.setPaint(gradient);

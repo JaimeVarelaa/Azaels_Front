@@ -1,6 +1,7 @@
 package GUI;
 
 import javax.swing.ImageIcon;
+import Assets.ConstantesColor;
 
 /**
  *
@@ -39,7 +40,7 @@ public class LoginGUI extends javax.swing.JFrame {
         setIconImage(new ImageIcon(getClass().getResource("/Assets/zorro.png")).getImage());
         setResizable(false);
 
-        loginPane.setBackground(new java.awt.Color(24, 6, 27));
+        loginPane.setBackground(ConstantesColor.fondo);
         loginPane.setMaximumSize(new java.awt.Dimension(300, 300));
         loginPane.setMinimumSize(new java.awt.Dimension(300, 300));
         loginPane.setPreferredSize(new java.awt.Dimension(300, 300));
@@ -49,28 +50,28 @@ public class LoginGUI extends javax.swing.JFrame {
         jLabel1.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jLabel1.setUI(new Renderer.CircularLabelRenderer());
 
-        jPanel1.setBackground(new java.awt.Color(24, 6, 27));
+        jPanel1.setBackground(ConstantesColor.fondo);
         jPanel1.setPreferredSize(new java.awt.Dimension(254, 129));
 
         jLabel2.setBackground(new java.awt.Color(0, 0, 0));
         jLabel2.setFont(new java.awt.Font("SansSerif", 1, 14)); // NOI18N
-        jLabel2.setForeground(new java.awt.Color(255, 82, 82));
+        jLabel2.setForeground(ConstantesColor.font2);
         jLabel2.setText("Usuario :");
 
         jLabel3.setBackground(new java.awt.Color(255, 82, 82));
         jLabel3.setFont(new java.awt.Font("SansSerif", 1, 14)); // NOI18N
-        jLabel3.setForeground(new java.awt.Color(255, 82, 82));
+        jLabel3.setForeground(ConstantesColor.font2);
         jLabel3.setText("Contraseña:");
 
-        jTextField1.setBackground(new java.awt.Color(255, 255, 255));
+        jTextField1.setBackground(ConstantesColor.blanco);
         jTextField1.setFont(new java.awt.Font("SansSerif", 1, 14)); // NOI18N
-        jTextField1.setForeground(new java.awt.Color(255, 82, 82));
+        jTextField1.setForeground(ConstantesColor.font2);
         jTextField1.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         jTextField1.setBorder(null);
 
-        jPasswordField1.setBackground(new java.awt.Color(255, 255, 255));
+        jPasswordField1.setBackground(ConstantesColor.blanco);
         jPasswordField1.setFont(new java.awt.Font("SansSerif", 1, 14)); // NOI18N
-        jPasswordField1.setForeground(new java.awt.Color(255, 82, 82));
+        jPasswordField1.setForeground(ConstantesColor.font2);
         jPasswordField1.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         jPasswordField1.setBorder(null);
         jPasswordField1.addActionListener(new java.awt.event.ActionListener() {
@@ -79,17 +80,22 @@ public class LoginGUI extends javax.swing.JFrame {
             }
         });
 
-        jButton1.setBackground(new java.awt.Color(255, 82, 82));
+        jButton1.setBackground(ConstantesColor.font2);
         jButton1.setFont(new java.awt.Font("SansSerif", 1, 14)); // NOI18N
-        jButton1.setForeground(new java.awt.Color(255, 255, 255));
+        jButton1.setForeground(ConstantesColor.blanco);
         jButton1.setText("Ingresar");
         jButton1.setBorder(null);
         jButton1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jButton1.setPreferredSize(new java.awt.Dimension(90, 25));
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
-        jButton2.setBackground(new java.awt.Color(255, 82, 82));
+        jButton2.setBackground(ConstantesColor.font2);
         jButton2.setFont(new java.awt.Font("SansSerif", 1, 14)); // NOI18N
-        jButton2.setForeground(new java.awt.Color(255, 255, 255));
+        jButton2.setForeground(ConstantesColor.blanco);
         jButton2.setText("Salir");
         jButton2.setBorder(null);
         jButton2.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
@@ -175,6 +181,12 @@ public class LoginGUI extends javax.swing.JFrame {
     private void jPasswordField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jPasswordField1ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jPasswordField1ActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // Configurar login
+        super.setVisible(false);
+        MainMenuGUI.mainMenuGUI();
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
      * @param args the command line arguments
