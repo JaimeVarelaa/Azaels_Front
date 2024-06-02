@@ -40,6 +40,7 @@ public class MainMenuGUI extends javax.swing.JFrame {
         Estadisticas = new javax.swing.JPanel();
         jPanel5 = new javax.swing.JPanel();
         jToolBar2 = new javax.swing.JToolBar();
+        jSeparator2 = new javax.swing.JToolBar.Separator();
         jLabel1 = new javax.swing.JLabel();
         jSeparator1 = new javax.swing.JToolBar.Separator();
         jButton1 = new javax.swing.JButton();
@@ -226,6 +227,10 @@ public class MainMenuGUI extends javax.swing.JFrame {
         jToolBar2.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
         jToolBar2.setRollover(true);
 
+        jSeparator2.setBackground(new java.awt.Color(255, 255, 255));
+        jSeparator2.setSeparatorSize(new java.awt.Dimension(30, 30));
+        jToolBar2.add(jSeparator2);
+
         jLabel1.setText("Usuario");
         jToolBar2.add(jLabel1);
 
@@ -387,6 +392,7 @@ public class MainMenuGUI extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel6;
     private javax.swing.JPanel jPanel7;
     private javax.swing.JToolBar.Separator jSeparator1;
+    private javax.swing.JToolBar.Separator jSeparator2;
     private javax.swing.JToolBar jToolBar2;
     // End of variables declaration//GEN-END:variables
 }
