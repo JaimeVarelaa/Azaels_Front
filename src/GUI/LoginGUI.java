@@ -194,7 +194,8 @@ public class LoginGUI extends javax.swing.JFrame {
     public static void main(String args[]) {
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new LoginGUI().setVisible(false);
+                MainMenuGUI.mainMenuGUI();
+                //new LoginGUI().setVisible(false);
             }
         });
     }
@@ -203,7 +204,7 @@ public class LoginGUI extends javax.swing.JFrame {
     public void setVisible(boolean b) {
         super.setVisible(true);
     }
-        
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
