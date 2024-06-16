@@ -37,6 +37,13 @@ public class MainMenuGUI extends javax.swing.JFrame {
         Procesos = new javax.swing.JPanel();
         jPanel4 = new javax.swing.JPanel();
         Consultas = new javax.swing.JPanel();
+        jPanel8 = new javax.swing.JPanel();
+        Cliente1 = new javax.swing.JPanel();
+        Clientes1 = new javax.swing.JPanel();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        tableClientes1 = new org.jdesktop.swingx.JXTable();
+        jButton11 = new javax.swing.JButton();
+        jButton12 = new javax.swing.JButton();
         Operaciones = new javax.swing.JPanel();
         jPanel6 = new javax.swing.JPanel();
         jToolBar1 = new javax.swing.JToolBar();
@@ -96,7 +103,7 @@ public class MainMenuGUI extends javax.swing.JFrame {
         ProcesosLayout.setVerticalGroup(
             ProcesosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, ProcesosLayout.createSequentialGroup()
-                .addContainerGap(394, Short.MAX_VALUE)
+                .addContainerGap(406, Short.MAX_VALUE)
                 .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(269, 269, 269))
         );
@@ -105,15 +112,90 @@ public class MainMenuGUI extends javax.swing.JFrame {
 
         Consultas.setBackground(new java.awt.Color(255, 102, 204));
 
+        jPanel8.setLayout(new java.awt.CardLayout());
+
+        javax.swing.GroupLayout Cliente1Layout = new javax.swing.GroupLayout(Cliente1);
+        Cliente1.setLayout(Cliente1Layout);
+        Cliente1Layout.setHorizontalGroup(
+            Cliente1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 1108, Short.MAX_VALUE)
+        );
+        Cliente1Layout.setVerticalGroup(
+            Cliente1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 763, Short.MAX_VALUE)
+        );
+
+        jPanel8.add(Cliente1, "Cliente");
+
+        Clientes1.setBackground(new java.awt.Color(255, 204, 204));
+
+        tableClientes1.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "ID", "Nombre", "Edad", "Sexo", "Telefono", "Correo", "Domicilio", "Fecha Nac"
+            }
+        ));
+        jScrollPane3.setViewportView(tableClientes1);
+
+        javax.swing.GroupLayout Clientes1Layout = new javax.swing.GroupLayout(Clientes1);
+        Clientes1.setLayout(Clientes1Layout);
+        Clientes1Layout.setHorizontalGroup(
+            Clientes1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 1108, Short.MAX_VALUE)
+        );
+        Clientes1Layout.setVerticalGroup(
+            Clientes1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(Clientes1Layout.createSequentialGroup()
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 376, Short.MAX_VALUE))
+        );
+
+        jPanel8.add(Clientes1, "Clientes");
+
+        jButton11.setText("Clientes");
+        jButton11.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton11ActionPerformed(evt);
+            }
+        });
+
+        jButton12.setText("Cliente");
+        jButton12.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton12ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout ConsultasLayout = new javax.swing.GroupLayout(Consultas);
         Consultas.setLayout(ConsultasLayout);
         ConsultasLayout.setHorizontalGroup(
             ConsultasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1254, Short.MAX_VALUE)
+            .addGroup(ConsultasLayout.createSequentialGroup()
+                .addGroup(ConsultasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jButton12, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton11))
+                .addGap(0, 1182, Short.MAX_VALUE))
+            .addGroup(ConsultasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(ConsultasLayout.createSequentialGroup()
+                    .addGap(73, 73, 73)
+                    .addComponent(jPanel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGap(73, 73, 73)))
         );
         ConsultasLayout.setVerticalGroup(
             ConsultasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 763, Short.MAX_VALUE)
+            .addGroup(ConsultasLayout.createSequentialGroup()
+                .addGap(88, 88, 88)
+                .addComponent(jButton12)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jButton11)
+                .addContainerGap(635, Short.MAX_VALUE))
+            .addGroup(ConsultasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(ConsultasLayout.createSequentialGroup()
+                    .addContainerGap()
+                    .addComponent(jPanel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addContainerGap()))
         );
 
         jPanel2.add(Consultas, "Consultas");
@@ -148,7 +230,7 @@ public class MainMenuGUI extends javax.swing.JFrame {
             .addGroup(OperacionesLayout.createSequentialGroup()
                 .addGap(122, 122, 122)
                 .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(541, Short.MAX_VALUE))
+                .addContainerGap(553, Short.MAX_VALUE))
             .addComponent(jToolBar1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
@@ -180,7 +262,7 @@ public class MainMenuGUI extends javax.swing.JFrame {
         );
         ReportesLayout.setVerticalGroup(
             ReportesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 763, Short.MAX_VALUE)
+            .addGap(0, 775, Short.MAX_VALUE)
             .addGroup(ReportesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(ReportesLayout.createSequentialGroup()
                     .addGap(0, 0, Short.MAX_VALUE)
@@ -216,7 +298,7 @@ public class MainMenuGUI extends javax.swing.JFrame {
         );
         EstadisticasLayout.setVerticalGroup(
             EstadisticasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 763, Short.MAX_VALUE)
+            .addGap(0, 775, Short.MAX_VALUE)
             .addGroup(EstadisticasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(EstadisticasLayout.createSequentialGroup()
                     .addGap(0, 0, Short.MAX_VALUE)
@@ -250,7 +332,7 @@ public class MainMenuGUI extends javax.swing.JFrame {
         );
         jPanel9Layout.setVerticalGroup(
             jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 763, Short.MAX_VALUE)
+            .addGap(0, 775, Short.MAX_VALUE)
             .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jPanel9Layout.createSequentialGroup()
                     .addGap(0, 0, Short.MAX_VALUE)
@@ -270,7 +352,7 @@ public class MainMenuGUI extends javax.swing.JFrame {
         );
         ClienteLayout.setVerticalGroup(
             ClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 763, Short.MAX_VALUE)
+            .addGap(0, 775, Short.MAX_VALUE)
         );
 
         jPanel3.add(Cliente, "Cliente");
@@ -297,7 +379,7 @@ public class MainMenuGUI extends javax.swing.JFrame {
             ClientesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(ClientesLayout.createSequentialGroup()
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 316, Short.MAX_VALUE))
+                .addGap(0, 388, Short.MAX_VALUE))
         );
 
         jPanel3.add(Clientes, "Clientes");
@@ -499,16 +581,27 @@ public class MainMenuGUI extends javax.swing.JFrame {
         card.show(this.jPanel2, "Pruebazz");
     }//GEN-LAST:event_jButton10ActionPerformed
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        CardLayout card = (CardLayout) this.jPanel3.getLayout();
-        card.show(this.jPanel3, "Cliente");
-    }//GEN-LAST:event_jButton2ActionPerformed
-
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         Clientes_Http.getClientes();
         CardLayout card = (CardLayout) this.jPanel3.getLayout();
         card.show(this.jPanel3, "Clientes");
     }//GEN-LAST:event_jButton3ActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        CardLayout card = (CardLayout) this.jPanel3.getLayout();
+        card.show(this.jPanel3, "Cliente");
+    }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jButton12ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton12ActionPerformed
+        CardLayout card = (CardLayout) this.jPanel8.getLayout();
+        card.show(this.jPanel8, "Cliente");
+    }//GEN-LAST:event_jButton12ActionPerformed
+
+    private void jButton11ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton11ActionPerformed
+        Clientes_Http.getClientes();
+        CardLayout card = (CardLayout) this.jPanel8.getLayout();
+        card.show(this.jPanel8, "Clientes");
+    }//GEN-LAST:event_jButton11ActionPerformed
 
     public static void mainMenuGUI() {
         /* Create and display the form */
@@ -520,7 +613,7 @@ public class MainMenuGUI extends javax.swing.JFrame {
     }
 
     public static void fillTablaClientes(Cliente cliente) {
-            DefaultTableModel tableModel = (DefaultTableModel) tableClientes.getModel();
+            DefaultTableModel tableModel = (DefaultTableModel) tableClientes1.getModel();
             Object[] rowData = new Object[]{
                 cliente.getId(),
                 cliente.getNombre(),
@@ -535,9 +628,12 @@ public class MainMenuGUI extends javax.swing.JFrame {
                 tableModel.addRow(rowData);
             });
     }
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel Cliente;
+    private javax.swing.JPanel Cliente1;
     private javax.swing.JPanel Clientes;
+    private javax.swing.JPanel Clientes1;
     private javax.swing.JPanel Consultas;
     private javax.swing.JPanel Estadisticas;
     private javax.swing.JPanel Operaciones;
@@ -546,6 +642,8 @@ public class MainMenuGUI extends javax.swing.JFrame {
     private javax.swing.JPanel Reportes;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton10;
+    private javax.swing.JButton jButton11;
+    private javax.swing.JButton jButton12;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton6;
@@ -561,12 +659,15 @@ public class MainMenuGUI extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel jPanel6;
     private javax.swing.JPanel jPanel7;
+    private javax.swing.JPanel jPanel8;
     private javax.swing.JPanel jPanel9;
     private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JToolBar.Separator jSeparator1;
     private javax.swing.JToolBar.Separator jSeparator2;
     private javax.swing.JToolBar jToolBar1;
     private javax.swing.JToolBar jToolBar2;
     private static org.jdesktop.swingx.JXTable tableClientes;
+    private static org.jdesktop.swingx.JXTable tableClientes1;
     // End of variables declaration//GEN-END:variables
 }
