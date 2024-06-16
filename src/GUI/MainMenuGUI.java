@@ -4,6 +4,7 @@ import Assets.ConstantesColor;
 import java.awt.CardLayout;
 import HTTP.Clientes_Http;
 import Objets.Cliente;
+import Objets.Ventas;
 import java.util.ArrayList;
 import javax.swing.SwingUtilities;
 import javax.swing.table.DefaultTableModel;
@@ -628,6 +629,8 @@ public class MainMenuGUI extends javax.swing.JFrame {
                 tableModel.addRow(rowData);
             });
     }
+    
+   
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel Cliente;
