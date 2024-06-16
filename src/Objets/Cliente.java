@@ -41,6 +41,8 @@ public class Cliente {
      * Domicilio del cliente
      */
     private String domicilio;
+    
+    
 
     /**
      *
@@ -61,6 +63,12 @@ public class Cliente {
         this.fechaNacimiento = fecha_nacimiento;
         this.domicilio = domicilio;
     }
+
+    public Cliente(String nombre) {
+        this.nombre = nombre;
+    }
+    
+    
 
     public String getId() {
         return id;
