@@ -3,13 +3,17 @@ package GUI;
 import Assets.ConstantesColor;
 import java.awt.CardLayout;
 import HTTP.Clientes_Http;
+import HTTP.Creditos_HTTP;
 import HTTP.Empleados_HTTP;
 import HTTP.Ventas_Http;
 import Objets.Cliente;
+import Objets.Credito;
 import Objets.Empleado;
 import Objets.Venta;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Map;
 import javax.swing.SwingUtilities;
 import javax.swing.table.DefaultTableModel;
 
@@ -18,7 +22,7 @@ import javax.swing.table.DefaultTableModel;
  * @author jaime
  */
 public class MainMenuGUI extends javax.swing.JFrame {
-    
+
     public static Empleado globalEmpleado = null;
 
     /**
@@ -55,6 +59,13 @@ public class MainMenuGUI extends javax.swing.JFrame {
         ventasTabla = new org.jdesktop.swingx.JXTable();
         jScrollPane4 = new javax.swing.JScrollPane();
         ventasTabla1 = new org.jdesktop.swingx.JXTable();
+        jScrollPane6 = new javax.swing.JScrollPane();
+        ventasTabla2 = new org.jdesktop.swingx.JXTable();
+        Creditos = new javax.swing.JPanel();
+        jScrollPane5 = new javax.swing.JScrollPane();
+        creditoTabla = new org.jdesktop.swingx.JXTable();
+        jScrollPane7 = new javax.swing.JScrollPane();
+        creditoTabla1 = new org.jdesktop.swingx.JXTable();
         jToolBar2 = new javax.swing.JToolBar();
         jSeparator2 = new javax.swing.JToolBar.Separator();
         jLabel1 = new javax.swing.JLabel();
@@ -63,6 +74,7 @@ public class MainMenuGUI extends javax.swing.JFrame {
         jButton1 = new javax.swing.JButton();
         jButton6 = new javax.swing.JButton();
         jButton7 = new javax.swing.JButton();
+        jButton8 = new javax.swing.JButton();
         jPanel3 = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -110,8 +122,9 @@ public class MainMenuGUI extends javax.swing.JFrame {
         EmpleadosLayout.setHorizontalGroup(
             EmpleadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(EmpleadosLayout.createSequentialGroup()
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 880, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 497, Short.MAX_VALUE))
+                .addGap(23, 23, 23)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 1333, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(21, Short.MAX_VALUE))
         );
         EmpleadosLayout.setVerticalGroup(
             EmpleadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -192,14 +205,14 @@ public class MainMenuGUI extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Empleado", "Total Vendido"
+                "Producto", "Cantidad", "Total Vendido"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.Object.class, java.lang.Integer.class
+                java.lang.Object.class, java.lang.Integer.class, java.lang.Integer.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false
+                false, false, false
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -230,6 +243,31 @@ public class MainMenuGUI extends javax.swing.JFrame {
         });
         jScrollPane4.setViewportView(ventasTabla1);
 
+        ventasTabla2.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "Empleado", "Total Vendido"
+            }
+        ) {
+            Class[] types = new Class [] {
+                java.lang.Object.class, java.lang.Integer.class
+            };
+            boolean[] canEdit = new boolean [] {
+                false, false
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jScrollPane6.setViewportView(ventasTabla2);
+
         javax.swing.GroupLayout VentasLayout = new javax.swing.GroupLayout(Ventas);
         Ventas.setLayout(VentasLayout);
         VentasLayout.setHorizontalGroup(
@@ -237,21 +275,97 @@ public class MainMenuGUI extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, VentasLayout.createSequentialGroup()
                 .addGap(14, 14, 14)
                 .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 950, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 34, Short.MAX_VALUE)
-                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 360, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(19, 19, 19))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 47, Short.MAX_VALUE)
+                .addGroup(VentasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 360, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jScrollPane6, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 360, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap())
         );
         VentasLayout.setVerticalGroup(
             VentasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(VentasLayout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, VentasLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(VentasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 864, Short.MAX_VALUE)
-                    .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 864, Short.MAX_VALUE))
+                .addGroup(VentasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(VentasLayout.createSequentialGroup()
+                        .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 410, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 410, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 864, Short.MAX_VALUE))
                 .addContainerGap())
         );
 
         jPanel2.add(Ventas, "ventas");
+
+        Creditos.setBackground(new java.awt.Color(255, 255, 255));
+
+        creditoTabla.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "ID", "Nombre", "Fecha", "Fecha Pago", "Tipo", "Cantidad", "Intereses"
+            }
+        ) {
+            Class[] types = new Class [] {
+                java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Integer.class, java.lang.Integer.class
+            };
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false, false, false
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jScrollPane5.setViewportView(creditoTabla);
+
+        creditoTabla1.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "Nombre", "Cantidad"
+            }
+        ) {
+            Class[] types = new Class [] {
+                java.lang.Object.class, java.lang.Integer.class
+            };
+            boolean[] canEdit = new boolean [] {
+                false, false
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jScrollPane7.setViewportView(creditoTabla1);
+
+        javax.swing.GroupLayout CreditosLayout = new javax.swing.GroupLayout(Creditos);
+        Creditos.setLayout(CreditosLayout);
+        CreditosLayout.setHorizontalGroup(
+            CreditosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(CreditosLayout.createSequentialGroup()
+                .addGap(20, 20, 20)
+                .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 894, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(41, 41, 41)
+                .addComponent(jScrollPane7, javax.swing.GroupLayout.PREFERRED_SIZE, 360, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        CreditosLayout.setVerticalGroup(
+            CreditosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jScrollPane5, javax.swing.GroupLayout.DEFAULT_SIZE, 876, Short.MAX_VALUE)
+            .addComponent(jScrollPane7, javax.swing.GroupLayout.DEFAULT_SIZE, 876, Short.MAX_VALUE)
+        );
+
+        jPanel2.add(Creditos, "creditos");
 
         jToolBar2.setBackground(ConstantesColor.fondo);
         jToolBar2.setBorder(null);
@@ -285,7 +399,7 @@ public class MainMenuGUI extends javax.swing.JFrame {
         jToolBar2.add(jButton1);
 
         jButton6.setBackground(ConstantesColor.fondo);
-        jButton6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Assets/Main/analisis-de-cartera.png"))); // NOI18N
+        jButton6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Assets/Main/ventas.png"))); // NOI18N
         jButton6.setText("Ventas");
         jButton6.setBorderPainted(false);
         jButton6.setFocusable(false);
@@ -299,7 +413,7 @@ public class MainMenuGUI extends javax.swing.JFrame {
         jToolBar2.add(jButton6);
 
         jButton7.setBackground(ConstantesColor.fondo);
-        jButton7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Assets/Main/Procesos.png"))); // NOI18N
+        jButton7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Assets/Main/empleado-de-oficina (1).png"))); // NOI18N
         jButton7.setText("Empleados");
         jButton7.setBorderPainted(false);
         jButton7.setFocusable(false);
@@ -311,6 +425,20 @@ public class MainMenuGUI extends javax.swing.JFrame {
             }
         });
         jToolBar2.add(jButton7);
+
+        jButton8.setBackground(ConstantesColor.fondo);
+        jButton8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Assets/Main/deuda (1).png"))); // NOI18N
+        jButton8.setText("Prestamos");
+        jButton8.setBorderPainted(false);
+        jButton8.setFocusable(false);
+        jButton8.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jButton8.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        jButton8.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton8ActionPerformed(evt);
+            }
+        });
+        jToolBar2.add(jButton8);
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -375,6 +503,10 @@ public class MainMenuGUI extends javax.swing.JFrame {
         CardLayout card = (CardLayout) this.jPanel2.getLayout();
         DefaultTableModel tableModel = (DefaultTableModel) ventasTabla.getModel();
         tableModel.setRowCount(0);
+        tableModel = (DefaultTableModel) ventasTabla1.getModel();
+        tableModel.setRowCount(0);
+        tableModel = (DefaultTableModel) ventasTabla2.getModel();
+        tableModel.setRowCount(0);
         card.show(this.jPanel2, "ventas");
         Ventas_Http.getVentas();
     }//GEN-LAST:event_jButton6ActionPerformed
@@ -394,6 +526,16 @@ public class MainMenuGUI extends javax.swing.JFrame {
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton3ActionPerformed
+
+    private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton8ActionPerformed
+        CardLayout card = (CardLayout) this.jPanel2.getLayout();
+        DefaultTableModel tableModel = (DefaultTableModel) creditoTabla.getModel();
+        tableModel.setRowCount(0);
+        tableModel = (DefaultTableModel) creditoTabla1.getModel();
+        tableModel.setRowCount(0);
+        card.show(this.jPanel2, "creditos");
+        Creditos_HTTP.getCreditos();
+    }//GEN-LAST:event_jButton8ActionPerformed
 
     public static void mainMenuGUI(Empleado empleado) {
         /* Create and display the form */
@@ -462,9 +604,9 @@ public class MainMenuGUI extends javax.swing.JFrame {
             tableModel.addRow(rowData);
         });
     }
-    
+
     public static void fillTablaVentas2(HashMap<String, Integer> empleadoVentas) {
-        DefaultTableModel tableModel = (DefaultTableModel) ventasTabla.getModel();
+        DefaultTableModel tableModel = (DefaultTableModel) ventasTabla2.getModel();
 
         tableModel.setRowCount(0);
 
@@ -477,17 +619,73 @@ public class MainMenuGUI extends javax.swing.JFrame {
         });
     }
 
+    public static void fillTablaVentas3(Map<String, int[]> productoVentas) {
+        DefaultTableModel tableModel = (DefaultTableModel) ventasTabla.getModel();
+        tableModel.setRowCount(0);
+
+        SwingUtilities.invokeLater(() -> {
+            for (String producto : productoVentas.keySet()) {
+                int[] datosVenta = productoVentas.get(producto);
+                int cantidadVendida = datosVenta[0];
+                int totalVentas = datosVenta[1];
+
+                Object[] rowData = new Object[]{producto, cantidadVendida, totalVentas};
+                tableModel.addRow(rowData);
+            }
+        });
+    }
+
+    public static void fillTablaCreditos(Credito credito) {
+        DefaultTableModel tableModel = (DefaultTableModel) creditoTabla.getModel();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");
+
+        String fechaInicioFormateada = credito.getFechaInicio().format(formatter);
+        String fechaFinalFormateada = credito.getFechaFinal().format(formatter);
+
+        Object[] rowData = new Object[]{
+            credito.getId(),
+            credito.getCliente().getNombre(),
+            fechaInicioFormateada,
+            fechaFinalFormateada,
+            credito.getTipoCredito().getNombre(),
+            credito.getPrestamo(),
+            credito.getTipoCredito().getInteres()
+        };
+
+        SwingUtilities.invokeLater(() -> {
+            tableModel.addRow(rowData);
+        });
+    }
+
+    public static void fillTablaCreditos1(HashMap<String, Integer> clienteDeuda) {
+        DefaultTableModel tableModel = (DefaultTableModel) creditoTabla1.getModel();
+
+        tableModel.setRowCount(0);
+
+        SwingUtilities.invokeLater(() -> {
+            for (String cliente : clienteDeuda.keySet()) {
+                int deuda = clienteDeuda.get(cliente);
+                Object[] rowData = new Object[]{cliente, deuda};
+                tableModel.addRow(rowData);
+            }
+        });
+    }
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel Clientes;
+    private javax.swing.JPanel Creditos;
     private javax.swing.JPanel Empleados;
     private javax.swing.JPanel Ventas;
+    private static org.jdesktop.swingx.JXTable creditoTabla;
+    private static org.jdesktop.swingx.JXTable creditoTabla1;
     private static org.jdesktop.swingx.JXTable empleadosTabla;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton6;
     private static javax.swing.JButton jButton7;
+    private static javax.swing.JButton jButton8;
     private static javax.swing.JLabel jLabel1;
     private static javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
@@ -498,11 +696,15 @@ public class MainMenuGUI extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
+    private javax.swing.JScrollPane jScrollPane5;
+    private javax.swing.JScrollPane jScrollPane6;
+    private javax.swing.JScrollPane jScrollPane7;
     private javax.swing.JToolBar.Separator jSeparator1;
     private javax.swing.JToolBar.Separator jSeparator2;
     private javax.swing.JToolBar jToolBar2;
     private static org.jdesktop.swingx.JXTable tableClientes1;
     private static org.jdesktop.swingx.JXTable ventasTabla;
     private static org.jdesktop.swingx.JXTable ventasTabla1;
+    private static org.jdesktop.swingx.JXTable ventasTabla2;
     // End of variables declaration//GEN-END:variables
 }

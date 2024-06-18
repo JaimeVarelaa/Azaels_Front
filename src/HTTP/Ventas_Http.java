@@ -6,6 +6,7 @@ package HTTP;
 
 import GUI.MainMenuGUI;
 import static GUI.MainMenuGUI.fillTablaVentas2;
+import static GUI.MainMenuGUI.fillTablaVentas3;
 import Objets.Cliente;
 import Objets.Empleado;
 import Objets.Producto;
@@ -18,6 +19,7 @@ import java.net.http.HttpResponse;
 import java.time.Duration;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Map;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -28,7 +30,8 @@ import org.json.JSONObject;
 public class Ventas_Http {
 
     private static final HttpClient client = HttpClient.newHttpClient();
-    private static HashMap<String, Integer> empleadoVenta = new HashMap();
+    private static HashMap<String, Integer> empleadoVenta;
+    private static Map<String, int[]> productoVentas;
 
     public static Venta getVenta4ID(String id) {
         Venta venta = null;
@@ -90,7 +93,8 @@ public class Ventas_Http {
                         .build();
 
                 HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
-
+                empleadoVenta = new HashMap<>();
+                productoVentas = new HashMap<>();
                 if (response.statusCode() == 200) {
                     JSONArray jsonArray = new JSONArray(response.body());
                     for (int i = 0; i < jsonArray.length(); i++) {
@@ -107,10 +111,22 @@ public class Ventas_Http {
                                 empleadoVenta.put(nombreEmpleado, precioVenta);
                             }
 
+                            String nombreProducto = venta.getProducto().getNombre();
+                            int cantidadVenta = venta.getCant_venta();
+                            if (productoVentas.containsKey(nombreProducto)) {
+                                int[] datosProducto = productoVentas.get(nombreProducto);
+                                datosProducto[0] += cantidadVenta;
+                                datosProducto[1] += cantidadVenta * precioVenta;
+                            } else {
+                                int[] datosProducto = new int[]{cantidadVenta, cantidadVenta * precioVenta};
+                                productoVentas.put(nombreProducto, datosProducto);
+                            }
+
                             MainMenuGUI.fillTablaVentas(venta);
                         }
                     }
                     fillTablaVentas2(empleadoVenta);
+                    fillTablaVentas3(productoVentas);
                 } else {
                     System.err.println("Error al obtener los clientes: " + response.statusCode());
                 }

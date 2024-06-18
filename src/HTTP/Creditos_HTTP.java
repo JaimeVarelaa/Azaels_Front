@@ -4,6 +4,7 @@
  */
 package HTTP;
 
+import GUI.MainMenuGUI;
 import Objets.Cliente;
 import Objets.Credito;
 import Objets.TipoCredito;
@@ -16,6 +17,7 @@ import java.time.Duration;
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.HashMap;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -26,6 +28,7 @@ import org.json.JSONObject;
 public class Creditos_HTTP {
 
     private static final HttpClient client = HttpClient.newHttpClient();
+    private static HashMap<String, Integer> clienteDeuda;
 
     public static Credito getCredito4ID(String id) {
         Credito credito = null;
@@ -87,7 +90,7 @@ public class Creditos_HTTP {
                         .build();
 
                 HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
-
+                clienteDeuda = new HashMap<>();
                 if (response.statusCode() == 200) {
                     JSONArray jsonArray = new JSONArray(response.body());
                     for (int i = 0; i < jsonArray.length(); i++) {
@@ -95,8 +98,18 @@ public class Creditos_HTTP {
                         Credito credito = responseToCredito(jsonObject);
                         if (credito != null) {
                             creditos.add(credito);
+                            String nombreCliente = credito.getCliente().getNombre();
+                            int deuda = credito.getPrestamo();
+                            if (clienteDeuda.containsKey(nombreCliente)) {
+                                int valorActual = clienteDeuda.get(nombreCliente);
+                                clienteDeuda.put(nombreCliente, valorActual + deuda);
+                            } else {
+                                clienteDeuda.put(nombreCliente, deuda);
+                            }
+                            MainMenuGUI.fillTablaCreditos(credito);
                         }
                     }
+                    MainMenuGUI.fillTablaCreditos1(clienteDeuda);
                 } else {
                     System.err.println("Error al obtener los clientes: " + response.statusCode());
                 }
@@ -112,15 +125,15 @@ public class Creditos_HTTP {
     private static Credito responseToCredito(HttpResponse<String> response) {
         Cliente cliente = null;
         TipoCredito tipoCredito = null;
-        
+
         String id = null;
 
         String nombreCliente = null;
-        
+
         int prestamo = 0;
         String fechaInicio;
         String fechaFinal;
-        
+
         String nombreTC = null;
         float interes = 0;
 
@@ -133,36 +146,35 @@ public class Creditos_HTTP {
         prestamo = jsonObject.getInt("cantidad_prestamo");
         fechaInicio = jsonObject.getString("fecha_inicio");
         fechaFinal = jsonObject.getString("fecha_final");
-        
+
         ZonedDateTime FechaInicio = ZonedDateTime.parse(fechaInicio, DateTimeFormatter.ISO_DATE_TIME);
         ZonedDateTime FechaFinal = ZonedDateTime.parse(fechaFinal, DateTimeFormatter.ISO_DATE_TIME);
-        
+
         JSONObject tipoCreditoj = jsonObject.getJSONObject("tipo_credito");
         nombreTC = tipoCreditoj.getString("nombre");
         interes = tipoCreditoj.getFloat("interes");
-        
+
         cliente = new Cliente(nombreCliente);
         tipoCredito = new TipoCredito(nombreTC, interes);
-        
-        System.out.println("id: " + id + ", nombreCliente: " + nombreCliente + ", prestamo: " + prestamo
+
+        /*System.out.println("id: " + id + ", nombreCliente: " + nombreCliente + ", prestamo: " + prestamo
         + ", fechaInicio: " + fechaInicio + ", fechaFinal: " + fechaFinal + ", nombreTC: " + nombreTC
-        + ", interes: " + interes);
-        
+        + ", interes: " + interes);*/
         return new Credito(id, cliente, prestamo, FechaInicio, FechaFinal, tipoCredito);
     }
 
     private static Credito responseToCredito(JSONObject jsonObject) {
         Cliente cliente = null;
         TipoCredito tipoCredito = null;
-        
+
         String id = null;
 
         String nombreCliente = null;
-        
+
         int prestamo = 0;
         String fechaInicio;
         String fechaFinal;
-        
+
         String nombreTC = null;
         float interes = 0;
 
@@ -174,21 +186,20 @@ public class Creditos_HTTP {
         prestamo = jsonObject.getInt("cantidad_prestamo");
         fechaInicio = jsonObject.getString("fecha_inicio");
         fechaFinal = jsonObject.getString("fecha_final");
-        
+
         ZonedDateTime FechaInicio = ZonedDateTime.parse(fechaInicio, DateTimeFormatter.ISO_DATE_TIME);
         ZonedDateTime FechaFinal = ZonedDateTime.parse(fechaFinal, DateTimeFormatter.ISO_DATE_TIME);
-        
+
         JSONObject tipoCreditoj = jsonObject.getJSONObject("tipo_credito");
         nombreTC = tipoCreditoj.getString("nombre");
         interes = tipoCreditoj.getFloat("interes");
-        
+
         cliente = new Cliente(nombreCliente);
         tipoCredito = new TipoCredito(nombreTC, interes);
-        
-        System.out.println("id: " + id + ", nombreCliente: " + nombreCliente + ", prestamo: " + prestamo
-        + ", fechaInicio: " + fechaInicio + ", fechaFinal: " + fechaFinal + ", nombreTC: " + nombreTC
-        + ", interes: " + interes);
 
+        /*System.out.println("id: " + id + ", nombreCliente: " + nombreCliente + ", prestamo: " + prestamo
+        + ", fechaInicio: " + fechaInicio + ", fechaFinal: " + fechaFinal + ", nombreTC: " + nombreTC
+        + ", interes: " + interes);*/
         return new Credito(id, cliente, prestamo, FechaInicio, FechaFinal, tipoCredito);
     }
 
