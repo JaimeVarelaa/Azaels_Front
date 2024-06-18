@@ -19,6 +19,10 @@ public class Contacto {
 
     public Contacto() {
     }
+    
+    public Contacto(String telefono) {
+        this.telefono = telefono;
+    }
 
     public Contacto(String telefono, String correo) {
         this.telefono = telefono;

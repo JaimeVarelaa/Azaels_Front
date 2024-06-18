@@ -8,7 +8,8 @@ public class Constantes {
     /**
      * URL base del servidor
      */
-    public static String url = "https://back-copy-bdd.vercel.app/";
+    //public static String url = "http://localhost:3000/";
+    public static String url = "https://back-one-zeta.vercel.app/";
 
     /**
      * Puerto del servidor

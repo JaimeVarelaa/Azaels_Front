@@ -8,67 +8,15 @@ package Objets;
  *
  * @author draks
  */
-public class Ventas {
+public class Venta {
+
     private String id;
-
-    /**
-     * Nombre del cliente
-     */
-   
     private Producto producto;
-    /**
-     * Edad del cliente
-     */
-    private Empleado empleado;
-
-    /**
-     * Sexo del cliente
-     */
-    private String tipo_pago;
-    
-    private int cant_venta;
-    
-    private int precio_venta;
-    
     private Cliente cliente;
-
-    public Ventas(String id, Producto producto, Empleado empleado, String tipo_pago, int cant_venta, int precio_venta, Cliente cliente) {
-        this.id = id;
-        this.producto = producto;
-        this.empleado = empleado;
-        this.tipo_pago = tipo_pago;
-        this.cant_venta = cant_venta;
-        this.precio_venta = precio_venta;
-        this.cliente = cliente;
-    }
-
-    public String getId() {
-        return id;
-    }
-
-    public Producto getProducto() {
-        return producto;
-    }
-
-    public Empleado getEmpleado() {
-        return empleado;
-    }
-
-    public String getTipo_pago() {
-        return tipo_pago;
-    }
-
-    public int getCant_venta() {
-        return cant_venta;
-    }
-
-    public int getPrecio_venta() {
-        return precio_venta;
-    }
-
-    public Cliente getCliente() {
-        return cliente;
-    }
+    private Empleado empleado;
+    private String tipo_pago;
+    private int cant_venta;
+    private int precio_venta;
 
     public void setId(String id) {
         this.id = id;
@@ -76,6 +24,10 @@ public class Ventas {
 
     public void setProducto(Producto producto) {
         this.producto = producto;
+    }
+
+    public void setCliente(Cliente cliente) {
+        this.cliente = cliente;
     }
 
     public void setEmpleado(Empleado empleado) {
@@ -94,11 +46,41 @@ public class Ventas {
         this.precio_venta = precio_venta;
     }
 
-    public void setCliente(Cliente cliente) {
-        this.cliente = cliente;
+    public String getId() {
+        return id;
     }
 
-    
-    
-    
+    public Producto getProducto() {
+        return producto;
+    }
+
+    public Cliente getCliente() {
+        return cliente;
+    }
+
+    public Empleado getEmpleado() {
+        return empleado;
+    }
+
+    public String getTipo_pago() {
+        return tipo_pago;
+    }
+
+    public int getCant_venta() {
+        return cant_venta;
+    }
+
+    public int getPrecio_venta() {
+        return precio_venta;
+    }
+
+    public Venta(String id, Producto producto, Cliente cliente, Empleado empleado, String tipo_pago, int cant_venta, int precio_venta) {
+        this.id = id;
+        this.producto = producto;
+        this.cliente = cliente;
+        this.empleado = empleado;
+        this.tipo_pago = tipo_pago;
+        this.cant_venta = cant_venta;
+        this.precio_venta = precio_venta;
+    }
 }

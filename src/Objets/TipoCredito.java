@@ -6,20 +6,30 @@ package Objets;
 
 /**
  *
- * @author draks
+ * @author jaime
  */
-public class Producto {
+public class TipoCredito {
     private String nombre;
+    private float interes;
 
     public void setNombre(String nombre) {
         this.nombre = nombre;
+    }
+
+    public void setInteres(float interes) {
+        this.interes = interes;
     }
 
     public String getNombre() {
         return nombre;
     }
 
-    public Producto(String nombre) {
+    public float getInteres() {
+        return interes;
+    }
+
+    public TipoCredito(String nombre, float interes) {
         this.nombre = nombre;
+        this.interes = interes;
     }
 }

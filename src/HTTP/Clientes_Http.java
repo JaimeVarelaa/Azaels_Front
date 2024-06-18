@@ -69,8 +69,7 @@ public class Clientes_Http {
                     JSONArray jsonArray = new JSONArray(response.body());
                     for (int i = 0; i < jsonArray.length(); i++) {
                         JSONObject jsonObject = jsonArray.getJSONObject(i);
-                        String id = jsonObject.getString("_id");
-                        Cliente cliente = getClientes4ID(id);
+                        Cliente cliente = responseToCliente(jsonObject);
                         if (cliente != null) {
                             clientes.add(cliente);
                             MainMenuGUI.fillTablaClientes(cliente);
@@ -103,6 +102,39 @@ public class Clientes_Http {
         String domicilio = null;
 
         JSONObject jsonObject = new JSONObject(response.body());
+        id = jsonObject.getString("_id");
+        nombre = jsonObject.getString("nombre");
+        edad = jsonObject.getInt("edad");
+        sexo = jsonObject.getString("sexo");
+        fechaNacimiento = jsonObject.getString("fecha_nacimiento");
+
+        JSONObject contactoj = jsonObject.getJSONObject("contacto");
+        telefono = contactoj.getString("telefono");
+        correo = contactoj.getString("correo");
+
+        JSONObject direccionj = jsonObject.getJSONObject("direccion");
+        domicilio = direccionj.getString("domicilio");
+
+        contacto = new Contacto(telefono, correo);
+
+        return new Cliente(id, nombre, edad, sexo, contacto, fechaNacimiento, domicilio);
+    }
+    
+    
+    private static Cliente responseToCliente(JSONObject jsonObject) {
+        Contacto contacto = null;
+
+        String id = null;
+        String nombre = null;
+        int edad = -1;
+        String sexo = null;
+
+        String telefono = null;
+        String correo = null;
+
+        String fechaNacimiento = null;
+        String domicilio = null;
+
         id = jsonObject.getString("_id");
         nombre = jsonObject.getString("nombre");
         edad = jsonObject.getInt("edad");

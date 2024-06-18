@@ -2,6 +2,13 @@ package GUI;
 
 import javax.swing.ImageIcon;
 import Assets.ConstantesColor;
+import HTTP.Clientes_Http;
+import HTTP.Creditos_HTTP;
+import HTTP.Empleados_HTTP;
+import HTTP.Ventas_Http;
+import Objets.Empleado;
+import java.util.ArrayList;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -31,9 +38,9 @@ public class LoginGUI extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jTextField1 = new javax.swing.JTextField();
-        jPasswordField1 = new javax.swing.JPasswordField();
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
+        jTextField2 = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Inicio de sesión");
@@ -56,12 +63,12 @@ public class LoginGUI extends javax.swing.JFrame {
         jLabel2.setBackground(new java.awt.Color(0, 0, 0));
         jLabel2.setFont(new java.awt.Font("SansSerif", 1, 14)); // NOI18N
         jLabel2.setForeground(ConstantesColor.font2);
-        jLabel2.setText("Usuario :");
+        jLabel2.setText("Nombre:");
 
         jLabel3.setBackground(new java.awt.Color(255, 82, 82));
         jLabel3.setFont(new java.awt.Font("SansSerif", 1, 14)); // NOI18N
         jLabel3.setForeground(ConstantesColor.font2);
-        jLabel3.setText("Contraseña:");
+        jLabel3.setText("Teléfono:");
 
         jTextField1.setBackground(ConstantesColor.blanco);
         jTextField1.setFont(new java.awt.Font("SansSerif", 1, 14)); // NOI18N
@@ -69,23 +76,12 @@ public class LoginGUI extends javax.swing.JFrame {
         jTextField1.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         jTextField1.setBorder(null);
 
-        jPasswordField1.setBackground(ConstantesColor.blanco);
-        jPasswordField1.setFont(new java.awt.Font("SansSerif", 1, 14)); // NOI18N
-        jPasswordField1.setForeground(ConstantesColor.font2);
-        jPasswordField1.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        jPasswordField1.setBorder(null);
-        jPasswordField1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jPasswordField1ActionPerformed(evt);
-            }
-        });
-
         jButton1.setBackground(ConstantesColor.font2);
         jButton1.setFont(new java.awt.Font("SansSerif", 1, 14)); // NOI18N
         jButton1.setForeground(ConstantesColor.blanco);
         jButton1.setText("Ingresar");
         jButton1.setBorder(null);
-        jButton1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jButton1.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         jButton1.setPreferredSize(new java.awt.Dimension(90, 25));
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -98,8 +94,19 @@ public class LoginGUI extends javax.swing.JFrame {
         jButton2.setForeground(ConstantesColor.blanco);
         jButton2.setText("Salir");
         jButton2.setBorder(null);
-        jButton2.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jButton2.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         jButton2.setPreferredSize(new java.awt.Dimension(90, 25));
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
+
+        jTextField2.setBackground(ConstantesColor.blanco);
+        jTextField2.setFont(new java.awt.Font("SansSerif", 1, 14)); // NOI18N
+        jTextField2.setForeground(ConstantesColor.font2);
+        jTextField2.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        jTextField2.setBorder(null);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -119,7 +126,7 @@ public class LoginGUI extends javax.swing.JFrame {
                         .addGap(18, 18, 18)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jTextField1)
-                            .addComponent(jPasswordField1))))
+                            .addComponent(jTextField2))))
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
@@ -130,9 +137,9 @@ public class LoginGUI extends javax.swing.JFrame {
                     .addComponent(jLabel2)
                     .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
-                    .addComponent(jPasswordField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 35, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -178,15 +185,40 @@ public class LoginGUI extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jPasswordField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jPasswordField1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jPasswordField1ActionPerformed
-
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // Configurar login
-        super.setVisible(false);
-        MainMenuGUI.mainMenuGUI();
+        ArrayList<Empleado> empleados = Empleados_HTTP.getEmpleado4name(jTextField1.getText());
+        if (empleados.isEmpty()) {
+            JOptionPane.showMessageDialog(null, "No se encontraron empleados con ese nombre.",
+                    "Error", JOptionPane.ERROR_MESSAGE);
+        } else {
+            boolean telefonoEncontrado = false;
+            for (Empleado empleado : empleados) {
+                if (empleado != null) {
+                    if (jTextField2.getText().equals(empleado.getContacto().getTelefono())) {
+                        telefonoEncontrado = true;
+                        String puesto = empleado.getPuesto().getPuesto();
+                        if (puesto.equals("Cajero") || puesto.equals("Vendedor") || puesto.equals("Gerente")) {
+                            super.setVisible(false);
+                            MainMenuGUI.mainMenuGUI(empleado);
+                        } else {
+                            JOptionPane.showMessageDialog(null, "No tienes permisos.",
+                                    "Empleado no autorizado", JOptionPane.INFORMATION_MESSAGE);
+                        }
+                        break;
+                    }
+                }
+            }
+            if (!telefonoEncontrado) {
+                JOptionPane.showMessageDialog(null, "Ningún empleado tiene ese número de teléfono.",
+                        "Teléfono no encontrado", JOptionPane.INFORMATION_MESSAGE);
+            }
+        }
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        System.exit(0);
+    }//GEN-LAST:event_jButton2ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -194,8 +226,7 @@ public class LoginGUI extends javax.swing.JFrame {
     public static void main(String args[]) {
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                MainMenuGUI.mainMenuGUI();
-                //new LoginGUI().setVisible(false);
+                new LoginGUI().setVisible(false);
             }
         });
     }
@@ -212,8 +243,8 @@ public class LoginGUI extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JPasswordField jPasswordField1;
     private javax.swing.JTextField jTextField1;
+    private javax.swing.JTextField jTextField2;
     private javax.swing.JPanel loginPane;
     // End of variables declaration//GEN-END:variables
 }
