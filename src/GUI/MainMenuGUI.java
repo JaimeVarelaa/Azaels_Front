@@ -14,6 +14,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+import javax.swing.JOptionPane;
 import javax.swing.SwingUtilities;
 import javax.swing.table.DefaultTableModel;
 
@@ -54,6 +55,7 @@ public class MainMenuGUI extends javax.swing.JFrame {
         tableClientes1 = new org.jdesktop.swingx.JXTable();
         jButton2 = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
+        jButton4 = new javax.swing.JButton();
         Ventas = new javax.swing.JPanel();
         jScrollPane3 = new javax.swing.JScrollPane();
         ventasTabla = new org.jdesktop.swingx.JXTable();
@@ -167,33 +169,37 @@ public class MainMenuGUI extends javax.swing.JFrame {
             }
         });
 
+        jButton4.setText("Eliminar");
+        jButton4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton4ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout ClientesLayout = new javax.swing.GroupLayout(Clientes);
         Clientes.setLayout(ClientesLayout);
         ClientesLayout.setHorizontalGroup(
             ClientesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(ClientesLayout.createSequentialGroup()
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 1116, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(jButton2)
-                .addGap(0, 101, Short.MAX_VALUE))
-            .addGroup(ClientesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, ClientesLayout.createSequentialGroup()
-                    .addContainerGap(1231, Short.MAX_VALUE)
+                .addGap(34, 34, 34)
+                .addGroup(ClientesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jButton3)
-                    .addGap(12, 12, 12)))
+                    .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(0, 123, Short.MAX_VALUE))
         );
         ClientesLayout.setVerticalGroup(
             ClientesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 876, Short.MAX_VALUE)
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 877, Short.MAX_VALUE)
             .addGroup(ClientesLayout.createSequentialGroup()
-                .addGap(40, 40, 40)
+                .addGap(23, 23, 23)
+                .addComponent(jButton3)
+                .addGap(18, 18, 18)
                 .addComponent(jButton2)
+                .addGap(18, 18, 18)
+                .addComponent(jButton4)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(ClientesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(ClientesLayout.createSequentialGroup()
-                    .addGap(10, 10, 10)
-                    .addComponent(jButton3)
-                    .addContainerGap(844, Short.MAX_VALUE)))
         );
 
         jPanel2.add(Clientes, "Operaciones");
@@ -520,11 +526,34 @@ public class MainMenuGUI extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton7ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        // TODO add your handling code here:
+         // Obtener el cliente seleccionado desde la tabla
+  int filaSeleccionada = tableClientes1.getSelectedRow(); // Ajusta esto según tu implementación
+
+  if (filaSeleccionada != -1) { // Verificar si se seleccionó una fila válida
+      // Obtener el objeto Cliente desde el modelo de la tabla
+      String clienteId = (String) tableClientes1.getValueAt(filaSeleccionada, 0); // Suponiendo que el ID está en la primera columna
+      Cliente clienteSeleccionado = Clientes_Http.getClientes4ID(clienteId); // Método para obtener el cliente por ID
+
+      // Crear un nuevo formulario para editar el cliente
+      EditarClienteForm editarClienteForm = new EditarClienteForm(clienteSeleccionado);
+      editarClienteForm.setVisible(true); // Mostrar el formulario de edición
+      
+  } else {
+      JOptionPane.showMessageDialog(this, "Por favor seleccione un cliente para editar", "Error", JOptionPane.ERROR_MESSAGE);
+  }
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        // TODO add your handling code here:
+        ClienteForm form = new ClienteForm(this);
+  form.setVisible(true);
+  if (form.isSucceeded()) {
+      Cliente newCliente = form.getNewCliente();
+      if (Clientes_Http.addCliente(newCliente)) {
+          MainMenuGUI.fillTablaClientes(newCliente); // Actualizar la tabla con el nuevo cliente
+      } else {
+          JOptionPane.showMessageDialog(this, "Error al agregar el cliente.", "Error", JOptionPane.ERROR_MESSAGE);
+      }
+  }
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton8ActionPerformed
@@ -536,6 +565,34 @@ public class MainMenuGUI extends javax.swing.JFrame {
         card.show(this.jPanel2, "creditos");
         Creditos_HTTP.getCreditos();
     }//GEN-LAST:event_jButton8ActionPerformed
+
+    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+        // Obtener la fila seleccionada
+  int filaSeleccionada = tableClientes1.getSelectedRow();
+
+  if (filaSeleccionada != -1) { // Verificar si se seleccionó una fila válida
+      // Obtener el ID del cliente seleccionado
+      String clienteId = (String) tableClientes1.getValueAt(filaSeleccionada, 0); // Suponiendo que el ID está en la primera columna
+
+      // Confirmar la eliminación con un mensaje de diálogo
+      int opcion = JOptionPane.showConfirmDialog(this, "¿Está seguro de eliminar este cliente?", "Confirmar eliminación", JOptionPane.YES_NO_OPTION);
+      
+      if (opcion == JOptionPane.YES_OPTION) { // Si el usuario confirma la eliminación
+          boolean eliminado = Clientes_Http.deleteCliente(clienteId); // Método para eliminar el cliente por ID
+
+          if (eliminado) {
+              JOptionPane.showMessageDialog(this, "Cliente eliminado correctamente", "Eliminado", JOptionPane.INFORMATION_MESSAGE);
+              DefaultTableModel tableModel = (DefaultTableModel) tableClientes1.getModel();
+              tableModel.setRowCount(0);
+              Clientes_Http.getClientes();
+          } else {
+              JOptionPane.showMessageDialog(this, "Error al eliminar el cliente", "Error", JOptionPane.ERROR_MESSAGE);
+          }
+      }
+  } else {
+      JOptionPane.showMessageDialog(this, "Por favor seleccione un cliente para eliminar", "Error", JOptionPane.ERROR_MESSAGE);
+  }
+    }//GEN-LAST:event_jButton4ActionPerformed
 
     public static void mainMenuGUI(Empleado empleado) {
         /* Create and display the form */
@@ -683,6 +740,7 @@ public class MainMenuGUI extends javax.swing.JFrame {
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
+    private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton6;
     private static javax.swing.JButton jButton7;
     private static javax.swing.JButton jButton8;

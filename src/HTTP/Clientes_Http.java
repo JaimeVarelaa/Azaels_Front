@@ -152,4 +152,106 @@ public class Clientes_Http {
 
         return new Cliente(id, nombre, edad, sexo, contacto, fechaNacimiento, domicilio);
     }
+    
+    public static boolean addCliente(Cliente cliente) {
+    try {
+        JSONObject json = new JSONObject();
+        json.put("nombre", cliente.getNombre());
+        json.put("edad", cliente.getEdad());
+        json.put("sexo", cliente.getSexo());
+        json.put("fecha_nacimiento", cliente.getFechaNacimiento());
+        
+        JSONObject contacto = new JSONObject();
+        contacto.put("telefono", cliente.getContacto().getTelefono());
+        contacto.put("correo", cliente.getContacto().getCorreo());
+        
+        json.put("contacto", contacto);
+        
+        JSONObject direccion = new JSONObject();
+        direccion.put("domicilio", cliente.getDomicilio());
+        
+        json.put("direccion", direccion);
+        
+        HttpRequest request = HttpRequest.newBuilder()
+                .uri(URI.create(Constantes.url + Constantes.rutas.clientes.name()))
+                .timeout(Duration.ofMinutes(1))
+                .header("Content-Type", "application/json")
+                .POST(HttpRequest.BodyPublishers.ofString(json.toString()))
+                .build();
+        
+        HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
+        
+        if (response.statusCode() == 201) {
+            return true;
+        } else {
+            System.err.println("Error al agregar el cliente: " + response.statusCode());
+        }
+    } catch (IOException | InterruptedException ex) {
+        ex.printStackTrace();
+    }
+    return false;
+}
+    
+    public static boolean updateCliente(Cliente cliente) {
+        try {
+            JSONObject json = new JSONObject();
+            json.put("nombre", cliente.getNombre());
+            json.put("edad", cliente.getEdad());
+            json.put("sexo", cliente.getSexo());
+            json.put("fecha_nacimiento", cliente.getFechaNacimiento());
+
+            JSONObject contacto = new JSONObject();
+            contacto.put("telefono", cliente.getContacto().getTelefono());
+            contacto.put("correo", cliente.getContacto().getCorreo());
+
+            json.put("contacto", contacto);
+
+            JSONObject direccion = new JSONObject();
+            direccion.put("domicilio", cliente.getDomicilio());
+
+            json.put("direccion", direccion);
+
+            HttpRequest request = HttpRequest.newBuilder()
+                    .uri(URI.create(Constantes.url + Constantes.rutas.clientes.name() + "/" + cliente.getId()))
+                    .timeout(Duration.ofMinutes(1))
+                    .header("Content-Type", "application/json")
+                    .method("PATCH", HttpRequest.BodyPublishers.ofString(json.toString())) // Usamos PATCH aquí
+                    .build();
+
+            HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
+
+            if (response.statusCode() == 200) {
+                
+                return true;
+            } else {
+                System.err.println("Error al actualizar el cliente: " + response.statusCode());
+            }
+        } catch (IOException | InterruptedException ex) {
+            ex.printStackTrace();
+        }
+        return false;
+    }
+    
+    public static boolean deleteCliente(String clienteId) {
+        try {
+            HttpRequest request = HttpRequest.newBuilder()
+                    .uri(URI.create(Constantes.url + Constantes.rutas.clientes.name() + "/" + clienteId))
+                    .timeout(Duration.ofMinutes(1))
+                    .DELETE()
+                    .build();
+
+            HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
+
+            if (response.statusCode() == 200) {
+                System.out.println("Cliente eliminado exitosamente: " + clienteId);
+                return true;
+            } else {
+                System.err.println("Error al eliminar el cliente: " + response.statusCode() + " - " + response.body());
+            }
+        } catch (IOException | InterruptedException ex) {
+            ex.printStackTrace();
+        }
+        return false;
+    }
+
 }
