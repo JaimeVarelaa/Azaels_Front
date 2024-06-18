@@ -5,6 +5,7 @@
 package HTTP;
 
 import GUI.MainMenuGUI;
+import static GUI.MainMenuGUI.fillTablaVentas2;
 import Objets.Cliente;
 import Objets.Empleado;
 import Objets.Producto;
@@ -16,6 +17,7 @@ import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.time.Duration;
 import java.util.ArrayList;
+import java.util.HashMap;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -26,6 +28,7 @@ import org.json.JSONObject;
 public class Ventas_Http {
 
     private static final HttpClient client = HttpClient.newHttpClient();
+    private static HashMap<String, Integer> empleadoVenta = new HashMap();
 
     public static Venta getVenta4ID(String id) {
         Venta venta = null;
@@ -95,9 +98,19 @@ public class Ventas_Http {
                         Venta venta = responseToVenta(jsonObject);
                         if (venta != null) {
                             ventas.add(venta);
+                            String nombreEmpleado = venta.getEmpleado().getNombre();
+                            int precioVenta = venta.getPrecio_venta();
+                            if (empleadoVenta.containsKey(nombreEmpleado)) {
+                                int valorActual = empleadoVenta.get(nombreEmpleado);
+                                empleadoVenta.put(nombreEmpleado, valorActual + precioVenta);
+                            } else {
+                                empleadoVenta.put(nombreEmpleado, precioVenta);
+                            }
+
                             MainMenuGUI.fillTablaVentas(venta);
                         }
                     }
+                    fillTablaVentas2(empleadoVenta);
                 } else {
                     System.err.println("Error al obtener los clientes: " + response.statusCode());
                 }
@@ -147,10 +160,9 @@ public class Ventas_Http {
         cliente = new Cliente(nombreCliente);
         empleado = new Empleado(nombreEmpleado);
 
-        System.out.println("id: " + id + ", tipo_pago: " + tipo_pago + ", cant_venta: " + cant_venta
+        /*        System.out.println("id: " + id + ", tipo_pago: " + tipo_pago + ", cant_venta: " + cant_venta
                 + ", precio_venta: " + precio_venta + ", nombreProducto: " + nombreProducto
-                + ", nombreCliente: " + nombreCliente + ", nombreEmpleado: " + nombreEmpleado);
-
+                + ", nombreCliente: " + nombreCliente + ", nombreEmpleado: " + nombreEmpleado);*/
         return new Venta(id, producto, cliente, empleado, tipo_pago, cant_venta, precio_venta);
     }
 
@@ -190,10 +202,9 @@ public class Ventas_Http {
         cliente = new Cliente(nombreCliente);
         empleado = new Empleado(nombreEmpleado);
 
-        System.out.println("id: " + id + ", tipo_pago: " + tipo_pago + ", cant_venta: " + cant_venta
+        /*System.out.println("id: " + id + ", tipo_pago: " + tipo_pago + ", cant_venta: " + cant_venta
                 + ", precio_venta: " + precio_venta + ", nombreProducto: " + nombreProducto
-                + ", nombreCliente: " + nombreCliente + ", nombreEmpleado: " + nombreEmpleado);
-
+                + ", nombreCliente: " + nombreCliente + ", nombreEmpleado: " + nombreEmpleado);*/
         return new Venta(id, producto, cliente, empleado, tipo_pago, cant_venta, precio_venta);
     }
 }

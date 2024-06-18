@@ -16,6 +16,7 @@ import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.time.Duration;
 import java.util.ArrayList;
+import java.util.HashMap;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -76,7 +77,7 @@ public class Empleados_HTTP {
         return empleados;
     }
 
-    public static ArrayList<Empleado> getEmpleados() {
+    public static ArrayList<Empleado> getEmpleados(Empleado trabajador) {
         ArrayList<Empleado> empleados = new ArrayList<>();
         Thread thread = new Thread(() -> {
             try {
@@ -95,7 +96,9 @@ public class Empleados_HTTP {
                         Empleado empleado = responseToEmpleado(jsonObject);
                         if (empleado != null) {
                             empleados.add(empleado);
-                            MainMenuGUI.fillTablaEmpleados(empleado);
+                            if (trabajador.getTienda().getNombre().equals(empleado.getTienda().getNombre())) {
+                                MainMenuGUI.fillTablaEmpleados(empleado);
+                            }
                         }
                     }
                 } else {
